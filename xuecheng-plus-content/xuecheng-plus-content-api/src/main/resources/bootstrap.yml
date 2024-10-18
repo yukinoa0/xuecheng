@@ -1,0 +1,31 @@
+server:
+  servlet:
+    context-path: /content
+  port: 63040
+#微服务配置
+spring:
+  application:
+    name: content-api
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.101:3306/content?serverTimezone=UTC&userUnicode=true&useSSL=false
+    username: root
+    password: 123456
+# 配置 knife4j swagger
+knife4j:
+  enable: true
+  openapi:
+    title: 学成在线内容管理系统
+    description: 内容管理系统对课程相关信息进行管理
+    concat: yukinoa0
+    url: https://github.com/yukinoa0
+    version: v1.0.0
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - com.xuecheng.content
+# 日志文件配置路径
+logging:
+  config: classpath:log4j2-dev.xml

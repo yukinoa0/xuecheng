@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class Teachplan implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -44,12 +44,12 @@ public class Teachplan implements Serializable {
     /**
      * 开始直播时间
      */
-    private Date startTime;
+    private LocalDateTime startTime;
 
     /**
      * 直播结束时间
      */
-    private Date endTime;
+    private LocalDateTime endTime;
 
     /**
      * 章节及课程时介绍
@@ -89,12 +89,12 @@ public class Teachplan implements Serializable {
     /**
      * 创建时间
      */
-    private Date createDate;
+    private LocalDateTime createDate;
 
     /**
      * 修改时间
      */
-    private Date changeDate;
+    private LocalDateTime changeDate;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

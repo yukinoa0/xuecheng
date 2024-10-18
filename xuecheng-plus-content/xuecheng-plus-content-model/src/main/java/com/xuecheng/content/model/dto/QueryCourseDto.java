@@ -1,5 +1,6 @@
 package com.xuecheng.content.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -13,16 +14,19 @@ public class QueryCourseDto {
     /**
      * 课程审核状态
      */
+    @ApiModelProperty("课程审核状态")
     private String auditStatus;
 
     /**
      * 课程名称
      */
+    @ApiModelProperty("课程名称")
     private String courseName;
 
     /**
      * 课程发布状态
      */
+    @ApiModelProperty("课程发布状态")
     private String publishStatus;
 
     public QueryCourseDto() {
