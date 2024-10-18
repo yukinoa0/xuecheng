@@ -17,6 +17,10 @@
         <relativePath/>
     </parent>
 
+    <modules>
+        <module>../xuecheng-plus-content</module>
+    </modules>
+
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
