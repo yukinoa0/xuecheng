@@ -1,5 +1,6 @@
 package com.xuecheng.content.model.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -111,6 +112,7 @@ public class CoursePublish implements Serializable {
     /**
      * 发布时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDate;
 
     /**

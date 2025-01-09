@@ -1,9 +1,6 @@
 package com.xuecheng.content.model.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -45,6 +42,7 @@ public class TeachplanMedia implements Serializable {
     /**
      *
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDate;
 
     /**

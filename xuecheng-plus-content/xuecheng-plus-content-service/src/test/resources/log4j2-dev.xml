@@ -50,10 +50,10 @@
         <logger name="com.netflix.discovery" level="INFO">
         </logger>
         
-        <logger name="RocketmqCommon"  level="INFO">
+        <logger name="RocketmqCommon"  level="INFO" >
 		</logger>
 		
-		<logger name="RocketmqRemoting" level="INFO">
+		<logger name="RocketmqRemoting" level="INFO"  >
 		</logger>
 		
 		<logger name="RocketmqClient" level="WARN">
