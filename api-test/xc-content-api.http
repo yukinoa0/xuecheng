@@ -1,0 +1,9 @@
+### 课程分页查询
+POST http://{{content_host}}/course/list?pageNo=1$pageSize=10
+content-type: application/json
+
+{
+  "auditStatus": "202002",
+  "courseName": "1",
+  "publishStatus": ""
+}

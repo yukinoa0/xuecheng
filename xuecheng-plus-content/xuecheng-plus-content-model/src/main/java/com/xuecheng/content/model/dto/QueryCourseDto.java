@@ -1,5 +1,6 @@
 package com.xuecheng.content.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import lombok.Data;
  * @Date 2024/10/18 19:41
  */
 @Data
+@ApiModel(description = "课程查询条件实体")
 public class QueryCourseDto {
     /**
      * 课程审核状态
