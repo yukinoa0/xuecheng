@@ -1,7 +1,7 @@
 package com.xuecheng.content.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xuecheng.content.model.dto.AddCourseDto;
+import com.xuecheng.content.model.dto.CourseDto;
 import com.xuecheng.content.model.po.CourseMarket;
 import com.xuecheng.content.service.CourseMarketService;
 import com.xuecheng.content.mapper.CourseMarketMapper;
@@ -20,15 +20,15 @@ public class CourseMarketServiceImpl extends ServiceImpl<CourseMarketMapper, Cou
     /**
      * 新增课程营销信息
      *
-     * @param courseId 课程 id
-     * @param dto      新增课程表单信息
+     * @param courseId  课程 id
+     * @param courseDto 课程表单信息
      * @return 课程营销信息
      */
     @Override
-    public CourseMarket createCourseMarket(Long courseId, AddCourseDto dto) {
+    public CourseMarket createCourseMarket(Long courseId, CourseDto courseDto) {
         CourseMarket courseMarket = new CourseMarket();
         courseMarket.setId(courseId);
-        BeanUtils.copyProperties(dto, courseMarket);
+        BeanUtils.copyProperties(courseDto, courseMarket);
         String charge = courseMarket.getCharge();
         if (StringUtils.isEmpty(charge)) {
             throw new RuntimeException("收费规则为空");

@@ -1,6 +1,6 @@
 package com.xuecheng.content.service;
 
-import com.xuecheng.content.model.dto.AddCourseDto;
+import com.xuecheng.content.model.dto.CourseDto;
 import com.xuecheng.content.model.po.CourseMarket;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,9 +13,9 @@ public interface CourseMarketService extends IService<CourseMarket> {
     /**
      * 新增课程营销信息
      *
-     * @param courseId 课程 id
-     * @param dto      新增课程表单信息
+     * @param courseId  课程 id
+     * @param courseDto 新增课程表单信息
      * @return 课程营销信息
      */
-    CourseMarket createCourseMarket(Long courseId, AddCourseDto dto);
+    CourseMarket createCourseMarket(Long courseId, CourseDto courseDto);
 }

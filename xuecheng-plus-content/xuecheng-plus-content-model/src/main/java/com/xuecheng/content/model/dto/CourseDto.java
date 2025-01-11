@@ -8,14 +8,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
- * @author Mr.M
- * @version 1.0
+ * @Author Mr.M
+ * @Version 1.0
  * @Description 添加课程 dto
  * @Date 2022/9/7 17:40
  */
 @Data
-@ApiModel(value = "AddCourseDto", description = "新增课程基本信息")
-public class AddCourseDto {
+@ApiModel(value = "CourseDto", description = "课程基本信息")
+public class CourseDto {
     @NotEmpty(message = "课程名称不能为空")
     @ApiModelProperty(value = "课程名称", required = true)
     private String name;

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xuecheng.base.model.PageBean;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.mapper.CourseBaseMapper;
-import com.xuecheng.content.model.dto.AddCourseDto;
+import com.xuecheng.content.model.dto.CourseDto;
 import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.QueryCourseDto;
 import com.xuecheng.content.model.po.CourseBase;
@@ -64,18 +64,16 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
      * 新增课程
      *
      * @param companyId 机构 id
-     * @param dto       新增课程表单信息
+     * @param courseDto 新增课程表单信息
      * @return 课程详细信息
      */
     @Transactional
     @Override
-    public CourseBaseInfoDto createCourse(Long companyId, AddCourseDto dto) {
-        // 参数合法性校验
-        checkAddCourseDto(dto);
+    public CourseBaseInfoDto createCourse(Long companyId, CourseDto courseDto) {
         // 向课程基本信息表 course_base 添加数据
-        CourseBase courseBase = createCourseBase(companyId, dto);
+        CourseBase courseBase = createCourseBase(companyId, courseDto);
         // 向课程营销表 course_market 添加数据
-        CourseMarket courseMarket = courseMarketService.createCourseMarket(courseBase.getId(), dto);
+        CourseMarket courseMarket = courseMarketService.createCourseMarket(courseBase.getId(), courseDto);
         // 返回课程详细信息
         return getCourseBaseInfo(courseBase, courseMarket);
     }
@@ -84,14 +82,14 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
      * 新增课程基本信息
      *
      * @param companyId 用户所属机构 id
-     * @param dto       新增课程表单信息
+     * @param courseDto 新增课程表单信息
      * @return 课程基本信息
      */
     @Override
-    public CourseBase createCourseBase(Long companyId, AddCourseDto dto) {
+    public CourseBase createCourseBase(Long companyId, CourseDto courseDto) {
         CourseBase courseBase = new CourseBase();
         // 属性拷贝
-        BeanUtils.copyProperties(dto, courseBase);
+        BeanUtils.copyProperties(courseDto, courseBase);
         courseBase.setCompanyId(companyId);
         courseBase.setCreateDate(LocalDateTime.now());
         courseBase.setAuditStatus("202002"); // 审核状态默认为未提交
@@ -125,31 +123,5 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         courseBaseInfoDto.setStName(stName);
         courseBaseInfoDto.setMtName(mtName);
         return courseBaseInfoDto;
-    }
-
-    public boolean checkAddCourseDto(AddCourseDto dto) {
-        //合法性校验
-        if (StringUtils.isBlank(dto.getName())) {
-            throw new RuntimeException("课程名称为空");
-        }
-        if (StringUtils.isBlank(dto.getMt())) {
-            throw new RuntimeException("课程分类为空");
-        }
-        if (StringUtils.isBlank(dto.getSt())) {
-            throw new RuntimeException("课程分类为空");
-        }
-        if (StringUtils.isBlank(dto.getGrade())) {
-            throw new RuntimeException("课程等级为空");
-        }
-        if (StringUtils.isBlank(dto.getTeachmode())) {
-            throw new RuntimeException("教育模式为空");
-        }
-        if (StringUtils.isBlank(dto.getUsers())) {
-            throw new RuntimeException("适应人群为空");
-        }
-        if (StringUtils.isBlank(dto.getCharge())) {
-            throw new RuntimeException("收费规则为空");
-        }
-        return true;
     }
 }

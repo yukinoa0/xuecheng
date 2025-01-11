@@ -2,7 +2,7 @@ package com.xuecheng.content.service;
 
 import com.xuecheng.base.model.PageBean;
 import com.xuecheng.base.model.PageResult;
-import com.xuecheng.content.model.dto.AddCourseDto;
+import com.xuecheng.content.model.dto.CourseDto;
 import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.QueryCourseDto;
 import com.xuecheng.content.model.po.CourseBase;
@@ -26,18 +26,18 @@ public interface CourseBaseService extends IService<CourseBase> {
     /**
      * 新增课程
      *
-     * @param companyId    用户所属机构id
-     * @param addCourseDto 新增课程表单信息
+     * @param companyId 用户所属机构 id
+     * @param courseDto 新增课程表单信息
      * @return 课程详细信息
      */
-    CourseBaseInfoDto createCourse(Long companyId, AddCourseDto addCourseDto);
+    CourseBaseInfoDto createCourse(Long companyId, CourseDto courseDto);
 
     /**
      * 新增课程基本信息
      *
-     * @param companyId    用户所属机构id
-     * @param addCourseDto 新增课程表单信息
+     * @param companyId 用户所属机构 id
+     * @param courseDto 新增课程表单信息
      * @return 课程基本信息
      */
-    CourseBase createCourseBase(Long companyId, AddCourseDto addCourseDto);
+    CourseBase createCourseBase(Long companyId, CourseDto courseDto);
 }
