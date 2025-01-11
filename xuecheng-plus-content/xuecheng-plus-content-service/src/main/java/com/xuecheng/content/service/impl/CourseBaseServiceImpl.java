@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  * @Date 2025/01/10 11:28
  */
 @Service
-public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseBase> implements CourseBaseService {
-
+public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseBase>
+        implements CourseBaseService {
     /**
      * 课程分页查询
      *
