@@ -1,9 +1,37 @@
 ### 课程分页查询
-POST http://{{content_host}}/course/list?pageNo=1$pageSize=10
+POST {{content_host}}/content/course/list?pageNo=1&pageSize=10
 content-type: application/json
 
 {
   "auditStatus": "202002",
   "courseName": "1",
   "publishStatus": ""
+}
+
+
+### 查询课程分类
+GET {{content_host}}/content/course-category/tree-nodes
+
+
+### 新增课程
+POST {{content_host}}/content/course
+Content-Type: application/json
+
+{
+  "charge": "201001",
+  "price": 50,
+  "originalPrice": 200,
+  "qq": "12364155",
+  "wechat": "1232434",
+  "phone": "15555555",
+  "validDays": 365,
+  "mt": "1-3",
+  "st": "1-3-2",
+  "name": "NIO网络编程",
+  "pic": "jsdhaDGyhsKsid",
+  "teachmode": "200002",
+  "users": "初级人员",
+  "tags": "1111111",
+  "grade": "204001",
+  "description": "java网络编程高级|java网络编程高级|java网络编程高级"
 }
