@@ -18,4 +18,20 @@ public interface CourseMarketService extends IService<CourseMarket> {
      * @return 课程营销信息
      */
     CourseMarket createCourseMarket(Long courseId, CourseDto courseDto);
+
+    /**
+     * 根据课程 id 查询营销信息
+     *
+     * @param courseId 课程 id
+     * @return 课程营销信息
+     */
+    CourseMarket queryCourseMarketById(Long courseId);
+
+    /**
+     * 修改课程营销信息
+     *
+     * @param courseDto 课程信息
+     * @return 课程营销信息
+     */
+    CourseMarket updateCourseMarket(CourseDto courseDto);
 }

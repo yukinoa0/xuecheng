@@ -27,6 +27,10 @@ public class CustomException extends RuntimeException {
     }
 
     public static void cast(ErrorEnum errorEnum) {
-        throw new CustomException(errorEnum.getErrorMsg());
+        cast(errorEnum.getErrorMsg());
+    }
+
+    public static void cast(String errorMsg) {
+        throw new CustomException(errorMsg);
     }
 }

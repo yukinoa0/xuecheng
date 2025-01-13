@@ -2,6 +2,7 @@ package com.xuecheng.content.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xuecheng.base.exception.CustomException;
 import com.xuecheng.base.model.PageBean;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.mapper.CourseBaseMapper;
@@ -96,9 +97,67 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         courseBase.setStatus("203001"); // 发布状态默认为未发布
         // 插入数据
         if (!save(courseBase)) {
-            throw new RuntimeException("新增课程失败");
+            CustomException.cast("新增课程失败");
         }
         return courseBase;
+    }
+
+    /**
+     * 根据课程 id 查询基本信息
+     *
+     * @param courseId 课程 id
+     * @return 课程基本信息
+     */
+    @Override
+    public CourseBase queryCourseBaseById(Long courseId) {
+        return lambdaQuery().eq(CourseBase::getId, courseId).one();
+    }
+
+    /**
+     * 根据课程 id 查询课程信息
+     *
+     * @param courseId 课程 id
+     * @return 课程详细信息
+     */
+    @Override
+    public CourseBaseInfoDto queryCourseById(Long courseId) {
+        // 查询课程基本信息
+        CourseBase courseBase = queryCourseBaseById(courseId);
+        // 查询课程营销信息
+        CourseMarket courseMarket = courseMarketService.queryCourseMarketById(courseId);
+        // 返回课程详细信息
+        return getCourseBaseInfo(courseBase, courseMarket);
+    }
+
+    /**
+     * 修改课程信息
+     *
+     * @param companyId 机构 id
+     * @param courseDto 修改的课程信息
+     * @return 课程详细信息
+     */
+    @Transactional
+    @Override
+    public CourseBaseInfoDto updateCourse(Long companyId, CourseDto courseDto) {
+        // 参数合法性校验
+        // 查询课程是否存在
+        CourseBase courseBase = queryCourseBaseById(courseDto.getId());
+        if (courseBase == null) {
+            CustomException.cast("课程不存在");
+        }
+        // 用户所属机构与课程所属机构的 id 是否一致
+        if (!courseBase.getCompanyId().equals(companyId)) {
+            CustomException.cast("只能修改本机构的课程");
+        }
+        // 更新课程基本信息
+        BeanUtils.copyProperties(courseDto, courseBase); // 属性拷贝
+        courseBase.setChangeDate(LocalDateTime.now()); // 设置基本时间
+        if (!updateById(courseBase)) {
+            CustomException.cast("修改课程失败");
+        }
+        // 更新课程营销信息
+        CourseMarket courseMarket = courseMarketService.updateCourseMarket(courseDto);
+        return getCourseBaseInfo(courseBase, courseMarket);
     }
 
     /**
@@ -113,7 +172,7 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         // 属性拷贝
         BeanUtils.copyProperties(courseBase, courseBaseInfoDto);
         BeanUtils.copyProperties(courseMarket, courseBaseInfoDto);
-        // 查询课程发布状态
+        // 查询课程分类
         String stName = courseCategoryService.lambdaQuery()
                 .eq(CourseCategory::getId, courseBase.getSt())
                 .one().getName();

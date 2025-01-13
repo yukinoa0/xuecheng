@@ -1,5 +1,6 @@
 package com.xuecheng.content.api;
 
+import com.xuecheng.base.exception.ValidationGroup;
 import com.xuecheng.base.model.PageBean;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.model.dto.CourseDto;
@@ -11,9 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -37,9 +36,23 @@ public class CourseBaseInfoController {
 
     @ApiOperation("新增课程接口")
     @PostMapping("/course")
-    public CourseBaseInfoDto createCourseBase(@RequestBody @Validated CourseDto courseDto) {
+    public CourseBaseInfoDto createCourse(@RequestBody @Validated CourseDto courseDto) {
         // TODO 获取用户所属机构 id
         Long companyId = 1232141425L;
         return courseBaseService.createCourse(companyId, courseDto);
+    }
+
+    @ApiOperation("根据课程 id 查询接口")
+    @GetMapping("/course/{courseId}")
+    public CourseBaseInfoDto queryCourseById(@PathVariable Long courseId) {
+        return courseBaseService.queryCourseById(courseId);
+    }
+
+    @ApiOperation("修改课程接口")
+    @PutMapping("/course")
+    public CourseBaseInfoDto modifyCourse(@RequestBody @Validated(ValidationGroup.Update.class) CourseDto courseDto) {
+        // TODO 获取用户所属机构 id
+        Long companyId = 1232141425L;
+        return courseBaseService.updateCourse(companyId, courseDto);
     }
 }
