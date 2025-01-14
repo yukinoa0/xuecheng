@@ -5,14 +5,14 @@
 <mapper namespace="com.xuecheng.content.mapper.TeachplanMediaMapper">
 
     <resultMap id="BaseResultMap" type="com.xuecheng.content.model.po.TeachplanMedia">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="mediaId" column="media_id" jdbcType="VARCHAR"/>
-            <result property="teachplanId" column="teachplan_id" jdbcType="BIGINT"/>
-            <result property="courseId" column="course_id" jdbcType="BIGINT"/>
-            <result property="mediaFilename" column="media_fileName" jdbcType="VARCHAR"/>
-            <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
-            <result property="createPeople" column="create_people" jdbcType="VARCHAR"/>
-            <result property="changePeople" column="change_people" jdbcType="VARCHAR"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="mediaId" column="media_id" jdbcType="VARCHAR"/>
+        <result property="teachplanId" column="teachplan_id" jdbcType="BIGINT"/>
+        <result property="courseId" column="course_id" jdbcType="BIGINT"/>
+        <result property="mediaFilename" column="media_fileName" jdbcType="VARCHAR"/>
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+        <result property="createPeople" column="create_people" jdbcType="VARCHAR"/>
+        <result property="changePeople" column="change_people" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">

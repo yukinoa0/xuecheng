@@ -21,10 +21,11 @@ import java.util.stream.Collectors;
 public class CourseCategoryServiceImpl extends ServiceImpl<CourseCategoryMapper, CourseCategory>
         implements CourseCategoryService {
     @Autowired
-    CourseCategoryMapper courseCategoryMapper;
+    private CourseCategoryMapper courseCategoryMapper;
 
     /**
      * 根据id查询课程分类
+     *
      * @param id 课程分类id
      */
     @Override
@@ -35,11 +36,12 @@ public class CourseCategoryServiceImpl extends ServiceImpl<CourseCategoryMapper,
 
     /**
      * 根据 id 递归查询并添加课程分类的子树节点
-     * @param id 课程分类 id
+     *
+     * @param id       课程分类 id
      * @param treeDtos 待查询的课程分类集合
      */
     private List<CourseCategoryTreeDto> queryTreeNodes(String id,
-                                                      List<CourseCategoryTreeDto> treeDtos) {
+                                                       List<CourseCategoryTreeDto> treeDtos) {
         return treeDtos.stream()
                 .filter(dto -> Objects.equals(dto.getParentid(), id))
                 .peek(dto -> {

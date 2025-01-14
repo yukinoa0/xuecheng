@@ -5,14 +5,14 @@
 <mapper namespace="com.xuecheng.content.mapper.CourseMarketMapper">
 
     <resultMap id="BaseResultMap" type="com.xuecheng.content.model.po.CourseMarket">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="charge" column="charge" jdbcType="VARCHAR"/>
-            <result property="price" column="price" jdbcType="FLOAT"/>
-            <result property="originalPrice" column="original_price" jdbcType="FLOAT"/>
-            <result property="qq" column="qq" jdbcType="VARCHAR"/>
-            <result property="wechat" column="wechat" jdbcType="VARCHAR"/>
-            <result property="phone" column="phone" jdbcType="VARCHAR"/>
-            <result property="validDays" column="valid_days" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="charge" column="charge" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="FLOAT"/>
+        <result property="originalPrice" column="original_price" jdbcType="FLOAT"/>
+        <result property="qq" column="qq" jdbcType="VARCHAR"/>
+        <result property="wechat" column="wechat" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="validDays" column="valid_days" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

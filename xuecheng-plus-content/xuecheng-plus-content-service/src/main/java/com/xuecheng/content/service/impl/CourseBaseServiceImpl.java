@@ -57,7 +57,7 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
                 .like(StringUtils.isNotEmpty(courseName), CourseBase::getName, courseName)
                 .eq(StringUtils.isNotEmpty(auditStatus), CourseBase::getAuditStatus, auditStatus)
                 .eq(StringUtils.isNotEmpty(publishStatus), CourseBase::getStatus, publishStatus)
-                .page(new Page<>(pageNo, pageSize));
+                .page(Page.of(pageNo, pageSize));
         return new PageResult<>(queryPage.getRecords(), queryPage.getTotal(), pageNo, pageSize);
     }
 

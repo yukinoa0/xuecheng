@@ -5,22 +5,48 @@
 <mapper namespace="com.xuecheng.content.mapper.TeachplanMapper">
 
     <resultMap id="BaseResultMap" type="com.xuecheng.content.model.po.Teachplan">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="pname" column="pname" jdbcType="VARCHAR"/>
+        <result property="parentid" column="parentid" jdbcType="BIGINT"/>
+        <result property="grade" column="grade" jdbcType="SMALLINT"/>
+        <result property="mediaType" column="media_type" jdbcType="VARCHAR"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="timelength" column="timelength" jdbcType="VARCHAR"/>
+        <result property="orderby" column="orderby" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="BIGINT"/>
+        <result property="coursePubId" column="course_pub_id" jdbcType="BIGINT"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="isPreview" column="is_preview" jdbcType="CHAR"/>
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+        <result property="changeDate" column="change_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="TreeNodeResultMap" type="com.xuecheng.content.model.dto.TeachplanDto">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="pname" column="pname" jdbcType="VARCHAR"/>
+        <result property="parentid" column="parentid" jdbcType="BIGINT"/>
+        <result property="grade" column="grade" jdbcType="SMALLINT"/>
+        <result property="mediaType" column="media_type" jdbcType="VARCHAR"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="timelength" column="timelength" jdbcType="VARCHAR"/>
+        <result property="orderby" column="orderby" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="BIGINT"/>
+        <result property="coursePubId" column="course_pub_id" jdbcType="BIGINT"/>
+        <!-- 映射 TeachplanMedia 字段 -->
+        <!-- 查询 teachplan_media 表时，相关字段都要加上 "tm_" 前缀 -->
+        <association property="teachplanMedia"
+                     javaType="com.xuecheng.content.model.po.TeachplanMedia"
+                     columnPrefix="tm_">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="pname" column="pname" jdbcType="VARCHAR"/>
-            <result property="parentid" column="parentid" jdbcType="BIGINT"/>
-            <result property="grade" column="grade" jdbcType="SMALLINT"/>
-            <result property="mediaType" column="media_type" jdbcType="VARCHAR"/>
-            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
-            <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="timelength" column="timelength" jdbcType="VARCHAR"/>
-            <result property="orderby" column="orderby" jdbcType="INTEGER"/>
+            <result property="mediaId" column="media_id" jdbcType="VARCHAR"/>
+            <result property="teachplanId" column="teachplan_id" jdbcType="BIGINT"/>
             <result property="courseId" column="course_id" jdbcType="BIGINT"/>
-            <result property="coursePubId" column="course_pub_id" jdbcType="BIGINT"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="isPreview" column="is_preview" jdbcType="CHAR"/>
-            <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
-            <result property="changeDate" column="change_date" jdbcType="TIMESTAMP"/>
+            <result property="mediaFilename" column="media_fileName" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -31,4 +57,24 @@
         status,is_preview,create_date,
         change_date
     </sql>
+
+    <!-- resultMap 映射实体类 TeachplanDto -->
+    <select id="selectTreeNodes" parameterType="long" resultMap="TreeNodeResultMap">
+        select t.id,
+               t.pname,
+               t.parentid,
+               t.grade,
+               t.media_type,
+               t.start_time,
+               t.end_time,
+               t.orderby,
+               t.course_id,
+               t.course_pub_id,
+               tm.id             as tm_id,
+               tm.media_id       as tm_media_id,
+               tm.media_fileName as tm_media_fileName
+        from teachplan as t
+                 left join teachplan_media as tm on t.id = tm.teachplan_id
+        where t.course_id = #{courseId}
+    </select>
 </mapper>

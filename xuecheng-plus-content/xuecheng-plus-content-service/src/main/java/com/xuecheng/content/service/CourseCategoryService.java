@@ -14,6 +14,7 @@ import java.util.List;
 public interface CourseCategoryService extends IService<CourseCategory> {
     /**
      * 根据 id 查询课程分类
+     *
      * @param id 课程分类 id
      */
     List<CourseCategoryTreeDto> queryTreeNodes(String id);
