@@ -1,29 +1,36 @@
 server:
   servlet:
-    context-path: /system
-  port: 63110
+    context-path: /media
+  port: 63050
 
 #微服务配置
 spring:
   application:
-    name: system-api
+    name: media-api
+  profiles:
+    active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.101:3306/xcplus_system?serverTimezone=UTC&userUnicode=true&useSSL=false
+    url: jdbc:mysql://192.168.1.101:3306/xc_media?serverTimezone=UTC&userUnicode=true&useSSL=false
     username: root
     password: 123456
   cloud:
     nacos:
       server-addr: 192.168.1.101:8848
+      discovery:
+        namespace: ${spring.profiles.active}
+        group: xuecheng-plus-project
       config:
+        namespace: ${spring.profiles.active}
+        group: xuecheng-plus-project
         file-extension: yaml
 
 # 配置 knife4j swagger
 knife4j:
   enable: true
   openapi:
-    title: 学成在线系统管理
-    description: 学成在线系统管理接口文档
+    title: 学成在线媒资管理系统
+    description: 媒资管理系统对媒资相关信息进行管理
     concat: yukinoa0
     url: https://github.com/yukinoa0
     version: v1.0.0
@@ -32,7 +39,7 @@ knife4j:
         group-name: default
         api-rule: package
         api-rule-resources:
-          - com.xuecheng.system
+          - com.xuecheng.media
 # 日志文件配置路径
 logging:
   config: classpath:log4j2-dev.xml

@@ -20,9 +20,6 @@ import java.util.stream.Collectors;
 @Service
 public class CourseCategoryServiceImpl extends ServiceImpl<CourseCategoryMapper, CourseCategory>
         implements CourseCategoryService {
-    @Autowired
-    private CourseCategoryMapper courseCategoryMapper;
-
     /**
      * 根据id查询课程分类
      *
@@ -30,7 +27,7 @@ public class CourseCategoryServiceImpl extends ServiceImpl<CourseCategoryMapper,
      */
     @Override
     public List<CourseCategoryTreeDto> queryTreeNodes(String id) {
-        List<CourseCategoryTreeDto> treeDtos = courseCategoryMapper.selectTreeNodes(id);
+        List<CourseCategoryTreeDto> treeDtos = getBaseMapper().selectTreeNodes(id);
         return queryTreeNodes(id, treeDtos);
     }
 

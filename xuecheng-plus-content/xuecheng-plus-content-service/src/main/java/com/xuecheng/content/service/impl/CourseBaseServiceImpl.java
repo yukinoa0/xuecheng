@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Author cliced
@@ -172,15 +174,14 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         // 属性拷贝
         BeanUtils.copyProperties(courseBase, courseBaseInfoDto);
         BeanUtils.copyProperties(courseMarket, courseBaseInfoDto);
-        // 查询课程分类
-        String stName = courseCategoryService.lambdaQuery()
-                .eq(CourseCategory::getId, courseBase.getSt())
-                .one().getName();
-        String mtName = courseCategoryService.lambdaQuery()
-                .eq(CourseCategory::getId, courseBase.getMt())
-                .one().getName();
-        courseBaseInfoDto.setStName(stName);
-        courseBaseInfoDto.setMtName(mtName);
+        // 查询课程分类: select * from course_category where id in (st, mt)
+        String st = courseBase.getSt();
+        String mt = courseBase.getMt();
+        Map<String, String> categoryMap = courseCategoryService.lambdaQuery()
+                .in(CourseCategory::getId, st, mt).list().stream()
+                .collect(Collectors.toMap(CourseCategory::getId, CourseCategory::getName));
+        courseBaseInfoDto.setStName(categoryMap.get(st));
+        courseBaseInfoDto.setMtName(categoryMap.get(mt));
         return courseBaseInfoDto;
     }
 }
